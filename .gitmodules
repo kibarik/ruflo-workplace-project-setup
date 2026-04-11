@@ -1,0 +1,3 @@
+[submodule ".claude/skills/caveman"]
+	path = .claude/skills/caveman
+	url = https://github.com/JuliusBrussee/caveman.git

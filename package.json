@@ -1,0 +1,36 @@
+{
+  "name": "ruflo-v3-project",
+  "version": "1.0.0",
+  "description": "RuFlo V3 Development Environment with OpenSpec, Playwright, and Claude-Flow",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:coverage": "playwright test --coverage",
+    "test:report": "playwright show-report",
+    "lint": "echo 'Linting not configured yet'",
+    "format": "echo 'Formatting not configured yet'",
+    "claude:doctor": "npx -y @claude-flow/cli@latest doctor --fix",
+    "claude:swarm": "npx -y @claude-flow/cli@latest swarm init --topology hierarchical-mesh --max-agents 15",
+    "claude:status": "npx -y @claude-flow/cli@latest swarm status",
+    "openspec:propose": "npx -y @claude-flow/cli@latest openspec propose",
+    "openspec:apply": "/openspec-apply-change"
+  },
+  "keywords": [
+    "claude-flow",
+    "openspec",
+    "playwright",
+    "ai-agents",
+    "testing"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
