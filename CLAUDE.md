@@ -182,7 +182,91 @@ npx @claude-flow/cli@latest doctor --fix
 - CLI tools handle coordination via Bash: swarm init, memory, hooks, routing
 - NEVER use CLI tools as a substitute for Task tool agents
 
+## Caveman Token Optimization
+
+This project includes **caveman** - a Claude Code skill that reduces token usage by 50-75% through condensed communication patterns. Caveman maintains full technical accuracy while dramatically reducing API costs.
+
+### Available Commands
+
+- `/caveman lite` - Professional but tight (25-35% reduction)
+- `/caveman full` - Classic caveman style, default mode (50-60% reduction)
+- `/caveman ultra` - Extreme abbreviation (70-75% reduction)
+- `/caveman wenyan-lite` - Semi-classical Chinese
+- `/caveman wenyan-full` - Full 文言文 (80-90% character reduction)
+- `/caveman wenyan-ultra` - Extreme classical Chinese abbreviation
+
+### When to Use Each Level
+
+**Use `lite` for:**
+- Formal documentation
+- Client-facing communications
+- Code reviews requiring clarity
+
+**Use `full` (default) for:**
+- Daily development work
+- Debugging and troubleshooting
+- Technical discussions
+- Most project communication
+
+**Use `ultra` for:**
+- Quick exchanges
+- Well-understood contexts
+- Rapid iteration sessions
+- Internal team communication
+
+**Use `wenyan` modes for:**
+- Chinese-speaking team members
+- Cross-cultural collaboration
+- When classical Chinese brevity is preferred
+
+### Examples
+
+**Question:** "Why is my React component re-rendering?"
+
+**Normal Claude (69 tokens):**
+> "The reason your React component is re-rendering is likely because you're creating a new object reference on each render cycle. When you pass an inline object as a prop, React's shallow comparison sees it as a different object every time, which triggers a re-render. I'd recommend using useMemo to memoize the object."
+
+**Caveman Full (19 tokens - 72% reduction):**
+> "New object ref each render. Inline object prop = new ref = re-render. Wrap in `useMemo`."
+
+**Caveman Ultra (10 tokens - 85% reduction):**
+> "Inline obj prop → new ref → re-render. `useMemo`."
+
+### Configuration
+
+Caveman is configured in `.claude/skills/caveman/config.yaml`:
+- Default intensity: `full`
+- Auto-clarity: Enabled (automatically disables for security warnings)
+- Status line integration: Available but disabled by default
+
+### Activation
+
+Caveman activates when:
+- You invoke any `/caveman` command
+- You say "caveman mode", "talk like caveman", "use caveman"
+- You request token efficiency or brevity
+
+Caveman deactivates when:
+- You say "stop caveman" or "normal mode"
+- Security warnings or irreversible actions are needed
+- Multi-step sequences require clarity (auto-disabled)
+
+### Token Savings
+
+Based on project analysis:
+- **Expected reduction:** 50-75% for most interactions
+- **Best use cases:** Debugging, code reviews, technical discussions
+- **Minimal impact:** Security warnings, complex explanations (auto-disabled)
+
+### Integration Details
+
+- **Installation:** Git submodule at `.claude/skills/caveman/` (pinned to v1.4.1)
+- **Type:** Project-local skill (does not affect other projects)
+- **Updates:** Run `git submodule update --remote .claude/skills/caveman` to update
+- **Rollback:** Run `git submodule deinit -f .claude/skills/caveman` to remove
+
 ## Support
 
 - Documentation: https://github.com/ruvnet/claude-flow
 - Issues: https://github.com/ruvnet/claude-flow/issues
+- Caveman: https://github.com/JuliusBrussee/caveman
