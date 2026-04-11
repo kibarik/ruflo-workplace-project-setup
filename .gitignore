@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+#SDD
+openspec/changes/
+
+# Testing
+playwright-report/
+test-results/
+coverage/
+
+# Claude-Flow
+.claude-flow/logs/
+.claude-flow/sessions/
+.claude-flow/metrics/
+.swarm/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+dist/
+build/
+*.tsbuildinfo
+
+# Temporary
+*.tmp
+.tmp/
