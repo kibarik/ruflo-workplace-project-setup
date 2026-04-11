@@ -26,7 +26,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "entire hooks claude-code pre-task"
+            "command": "sessionlog hooks claude-code pre-task"
           }
         ]
       }
@@ -57,7 +57,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "entire hooks claude-code post-task"
+            "command": "sessionlog hooks claude-code post-task"
           }
         ]
       },
@@ -66,7 +66,52 @@
         "hooks": [
           {
             "type": "command",
-            "command": "entire hooks claude-code post-todo"
+            "command": "sessionlog hooks claude-code post-todo"
+          }
+        ]
+      },
+      {
+        "matcher": "TaskCreate",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sessionlog hooks claude-code post-task-create"
+          }
+        ]
+      },
+      {
+        "matcher": "TaskUpdate",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sessionlog hooks claude-code post-task-update"
+          }
+        ]
+      },
+      {
+        "matcher": "EnterPlanMode",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sessionlog hooks claude-code post-plan-enter"
+          }
+        ]
+      },
+      {
+        "matcher": "ExitPlanMode",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sessionlog hooks claude-code post-plan-exit"
+          }
+        ]
+      },
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sessionlog hooks claude-code post-skill"
           }
         ]
       }
@@ -86,7 +131,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "entire hooks claude-code user-prompt-submit"
+            "command": "sessionlog hooks claude-code user-prompt-submit"
           }
         ]
       }
@@ -111,7 +156,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "entire hooks claude-code session-start"
+            "command": "sessionlog hooks claude-code session-start"
           }
         ]
       }
@@ -131,7 +176,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "entire hooks claude-code session-end"
+            "command": "sessionlog hooks claude-code session-end"
           }
         ]
       }
@@ -151,7 +196,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "entire hooks claude-code stop"
+            "command": "sessionlog hooks claude-code stop"
           }
         ]
       }
@@ -234,7 +279,8 @@
     "deny": [
       "Read(./.env)",
       "Read(./.env.*)",
-      "Read(./.entire/metadata/**)"
+      "Read(./.entire/metadata/**)",
+      "Read(./.sessionlog/metadata/**)"
     ]
   },
   "attribution": {
@@ -303,7 +349,7 @@
       "enabled": true
     },
     "daemon": {
-      "autoStart": false,
+      "autoStart": true,
       "workers": [
         "map",
         "audit",
