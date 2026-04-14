@@ -3,6 +3,8 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * Playwright Configuration for RuFlo V3
  *
+ * Feature-based test structure: one test file per product feature.
+ *
  * This configuration supports:
  * - E2E testing for OpenSpec requirements
  * - Multi-browser testing (Chrome, Firefox, Safari)
@@ -11,7 +13,8 @@ import { defineConfig, devices } from '@playwright/test';
  * - Coverage reporting
  */
 export default defineConfig({
-  testDir: './tests',
+  testDir: './tests/features',
+  testMatch: '**/*.spec.ts',
 
   // Run tests in files in parallel
   fullyParallel: true,
