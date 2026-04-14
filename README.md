@@ -13,12 +13,15 @@ AI-powered development environment with OpenSpec specifications, Playwright test
 cd /path/to/your/project
 cp -r /path/to/ruflo-v3/* .
 
-# 2. Install dependencies
+# 2. Initialize git submodules (Superpowers, Caveman)
+git submodule update --init --recursive
+
+# 3. Install dependencies
 npm install
 npx playwright install
 npx -y @claude-flow/cli@latest daemon start
 
-# 3. Verify setup
+# 4. Verify setup
 npm run claude:doctor
 npm test
 ```
@@ -110,6 +113,92 @@ List all API endpoints in backend/
 ```
 Use more specific queries
 "Find components using UserProfile" not "Find everything about users"
+```
+
+---
+
+## ⚡ Superpowers Setup
+
+**Superpowers = automated TDD, debugging, and collaboration skills. Quality workflows that activate automatically.**
+
+### Already Included
+
+Superpowers is included as a git submodule in this project:
+
+```bash
+# Already initialized at:
+.claude/skills/superpowers
+```
+
+### How It Works
+
+Superpowers skills activate **automatically** based on context:
+
+1. **Before coding** → `brainstorming` refines requirements
+2. **With approved design** → `writing-plans` breaks work into tasks
+3. **During implementation** → `test-driven-development` enforces TDD
+4. **When bugs appear** → `systematic-debugging` finds root cause
+5. **Between tasks** → `requesting-code-review` validates progress
+
+### Core Skills (Auto-Activating)
+
+| Skill | When It Activates | What It Does |
+|-------|------------------|--------------|
+| **brainstorming** | "Help me design X" | Socratic questions to refine requirements |
+| **test-driven-development** | "Add tests for X" | Enforces RED-GREEN-REFACTOR cycle |
+| **systematic-debugging** | "This test fails" | 4-phase root cause analysis |
+| **writing-plans** | "Plan this feature" | Detailed implementation planning |
+| **requesting-code-review** | "Review my changes" | Pre-review checklist |
+
+### Usage Examples
+
+**Just ask normally - skills activate automatically:**
+
+```
+"Help me implement user authentication"
+→ brainstorming → planning → TDD → review
+
+"This test is failing intermittently"
+→ systematic-debugging (4-phase root cause)
+
+"Add tests for payment module"
+→ test-driven-development (RED-GREEN-REFACTOR)
+```
+
+### When to Use Superpowers
+
+✅ **Perfect for:**
+- Single-feature development requiring quality
+- Debugging complex issues systematically
+- Refactoring with verification
+- Code reviews and collaboration
+- Teams wanting structure without swarm overhead
+
+❌ **Don't use for:**
+- Simple one-liner fixes
+- Multi-component architecture (use OpenSpec + Swarm)
+
+### Update Superpowers
+
+```bash
+# Get latest superpowers features
+git submodule update --remote .claude/skills/superpowers
+```
+
+### Troubleshooting
+
+**Problem:** Skills not activating
+```bash
+# Verify superpowers is present
+ls .claude/skills/superpowers/skills/
+
+# Re-initialize if needed
+git submodule update --init .claude/skills/superpowers
+```
+
+**Problem:** Want to disable auto-activation
+```
+Just say: "skip brainstorming" or "direct implementation"
 ```
 
 ---
