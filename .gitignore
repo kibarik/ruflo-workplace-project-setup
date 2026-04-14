@@ -43,3 +43,12 @@ build/
 # Temporary
 *.tmp
 .tmp/
+
+# Context7 MCP
+.context7/
+
+# Claude Code runtime
+.claude-flow/agents/
+.claude/mcp.json
+.claude/skills/.claude-flow/
+.sessionlog/

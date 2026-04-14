@@ -25,19 +25,150 @@ npm test
 
 ---
 
+## 🔍 Setting Up Serena MCP
+
+**Serena = semantic code search & navigation. Index your project, find anything instantly.**
+
+### Installation
+
+```bash
+# Install Serena MCP server
+npx -y @modelcontextprotocol/server-serena
+
+# Or add to Claude Code MCP servers
+claude mcp add serena -- npx -y @modelcontextprotocol/server-serena
+```
+
+### Initial Index
+
+```bash
+# Index your project (one-time setup)
+# In Claude Code, run:
+"Index the current project with Serena"
+
+# Or via MCP:
+mcp__serena__index_project
+```
+
+**What gets indexed:**
+- All source files (src/, tests/, etc.)
+- Symbols (classes, functions, variables)
+- Dependencies and imports
+- Code structure and relationships
+
+### Usage Examples
+
+**Find components:**
+```
+Find all components using UserProfile
+```
+
+**Navigate code:**
+```
+Show structure of UserService class
+What depends on validateUser method?
+Find all references to UserRepository
+```
+
+**Search patterns:**
+```
+Find symbols matching "Auth*"
+Show files that import axios
+List all API endpoints in backend/
+```
+
+### When to Use Serena
+
+✅ **Use Serena for:**
+- Finding where code is used
+- Understanding dependencies
+- Navigating large codebases
+- Refactoring (find all usages)
+- Code exploration
+
+❌ **Don't use for:**
+- Simple grep searches (use Grep tool)
+- File finding (use Glob tool)
+- Reading files (use Read tool)
+
+### Tips
+
+1. **Index after big changes** - Re-index after adding many files
+2. **Use semantic queries** - "Find components that use X" not "search for X"
+3. **Combine with other tools** - Serena to find, Read to view
+4. **Specific questions** - "What calls UserService.login?" not "tell me about login"
+
+### Troubleshooting
+
+**Problem:** Serena can't find your code
+```bash
+# Re-index the project
+"Re-index with Serena, include src/ and tests/"
+```
+
+**Problem:** Slow searches
+```
+Use more specific queries
+"Find components using UserProfile" not "Find everything about users"
+```
+
+---
+
 ## 🎯 What It Does
 
-**Three components, one workflow:**
+**Three approaches, optimized for task complexity:**
+
+1. **Direct Claude Code** - Simple tasks, fast execution
+2. **Superpowers** - Medium tasks, structured quality
+3. **OpenSpec + Claude-Flow** - Complex tasks, comprehensive orchestration
+
+**Three-component workflow for complex tasks:**
 
 1. **OpenSpec** - Write specifications (what to build)
 2. **Playwright** - Write tests (how to verify)
 3. **Claude-Flow** - AI agents implement (make it work)
 
-**Formula:** Specification → Tests → Implementation → Green Tests = Done
+**Formula (complex tasks):** Specification → Tests → Implementation → Green Tests = Done
+
+**Formula (medium tasks with Superpowers):** Ask → Auto-skills activate → TDD → Review → Done
 
 ---
 
 ## 📋 When to Use What
+
+### Quick Decision Matrix
+
+| Task Complexity | Approach | Example | Time |
+|-----------------|----------|---------|------|
+| **Simple** (1-3 files) | Direct Claude Code | "Add Save button" | Minutes |
+| **Medium** (feature, debugging) | Superpowers | "Implement auth with TDD" | Hours |
+| **Complex** (multi-component, architecture) | OpenSpec + Swarm | "Refactor DB layer" | Days |
+
+### Task Complexity Levels
+
+RuFlo provides three approaches optimized for different task complexities:
+
+**Simple Tasks** (1-3 files, bug fixes, small tweaks)
+→ **Direct Claude Code execution**
+- Just ask Claude directly: "Add Save button to form"
+- No formal process needed
+- Fast, direct completion
+
+**Medium Tasks** (features requiring planning, TDD, debugging)
+→ **Superpowers workflows**
+- Structured approach with automated skills
+- Test-driven development enforced
+- Systematic debugging and planning
+- Best balance of speed and quality
+
+**Complex Tasks** (multi-component, refactoring, microservices)
+→ **OpenSpec + Claude-Flow swarm**
+- Formal specifications required
+- Multi-agent coordination
+- Comprehensive testing and verification
+- Full traceability and rollback planning
+
+---
 
 ### Scenario 1: Big Feature (Backend + Frontend + DB)
 **Example:** User profile page with settings
@@ -67,7 +198,40 @@ npm test tests/user-profile.spec.ts
 
 ---
 
-### Scenario 2: Small Feature
+### Scenario 2: Medium Feature with Superpowers (Recommended)
+**Example:** User authentication with login form
+
+**Steps:**
+```bash
+# In Claude Code, just say:
+"Implement user authentication with Superpowers"
+
+# Superpowers will automatically:
+# 1. Use brainstorming skill to refine requirements
+# 2. Create detailed implementation plan
+# 3. Enforce TDD: write failing tests first
+# 4. Implement with test-driven-development skill
+# 5. Review with requesting-code-review skill
+# 6. Finish with clean git history
+```
+
+**When to use:**
+- Single feature requiring careful design
+- Need test coverage and quality assurance
+- Want systematic approach without full swarm overhead
+- Debugging complex issues
+- Refactoring with verification
+
+**Benefits:**
+- Automated TDD enforcement (RED-GREEN-REFACTOR)
+- Systematic debugging (4-phase root cause analysis)
+- Structured planning and review
+- Clean git history
+- No manual configuration needed
+
+---
+
+### Scenario 3: Small Feature (Direct Claude Code)
 **Example:** Add "Save" button to form
 
 **In Claude Code:**
@@ -85,7 +249,7 @@ Add Save button to settings form
 
 ---
 
-### Scenario 3: Refactoring
+### Scenario 4: Refactoring (Big)
 **Example:** Optimize N+1 database queries
 
 **Steps:**
@@ -112,7 +276,7 @@ npm test tests/posts.spec.ts
 
 ---
 
-### Scenario 4: Microservices
+### Scenario 5: Microservices
 **Example:** User Service + Order Service
 
 **Steps:**
@@ -172,6 +336,32 @@ npm run claude:status     # Check status
 /caveman ultra           # Max compression (70-75% savings)
 stop caveman             # Deactivate
 ```
+
+### Superpowers (TDD, debugging, collaboration)
+**Optimal for medium-complexity tasks requiring structure without swarm overhead.**
+
+Superpowers provides automated workflows that activate based on context:
+
+**When Superpowers activates:**
+- "Help me implement user authentication" → brainstorming → planning → TDD → review
+- "This test is failing intermittently" → systematic-debugging (4-phase root cause)
+- "Add tests for payment module" → test-driven-development (RED-GREEN-REFACTOR)
+- "Review my API changes" → requesting-code-review workflow
+
+**Core Skills (auto-activating):**
+- **test-driven-development** - Enforces RED-GREEN-REFACTOR cycle
+- **systematic-debugging** - 4-phase root cause analysis
+- **brainstorming** - Socratic design refinement
+- **writing-plans** - Detailed implementation planning
+- **subagent-driven-development** - Fast iteration with two-stage review
+- **requesting-code-review** - Pre-review checklist and validation
+
+**Perfect for:**
+- Single-feature development requiring quality assurance
+- Debugging complex issues systematically
+- Refactoring with verification
+- Code reviews and collaboration
+- Teams wanting structure without full swarm complexity
 
 ---
 
@@ -251,6 +441,10 @@ Use Serena MCP:
 - **playwright** - E2E testing, snapshots
 - **serena** - Semantic code search, refactoring
 
+### Skills & Plugins
+- **caveman** - Token optimization (50-75% reduction)
+- **superpowers** - TDD, debugging, collaboration workflows
+
 ### Directory Structure
 ```
 ├── openspec/              # Specifications
@@ -286,6 +480,7 @@ Use Serena MCP:
 - **OpenSpec**: Use `/openspec-explore` in Claude Code
 - **Playwright**: https://playwright.dev
 - **Caveman**: https://github.com/JuliusBrussee/caveman
+- **Superpowers**: https://github.com/obra/superpowers
 
 ---
 
@@ -299,4 +494,4 @@ Use Serena MCP:
 
 ---
 
-**Built with ❤️ using Claude-Flow V3, OpenSpec, Playwright, and Caveman**
+**Built with ❤️ using Claude-Flow V3, OpenSpec, Playwright, Caveman, and Superpowers**

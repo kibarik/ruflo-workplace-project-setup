@@ -10,6 +10,7 @@
 - Never continuously check status after spawning a swarm — wait for results
 - ALWAYS read a file before editing it
 - NEVER commit secrets, credentials, or .env files
+- ALWAYS execute `/opsx:apply` commands through ClaudeFlow swarm coordination
 
 ## File Organization
 
@@ -182,6 +183,217 @@ npx @claude-flow/cli@latest doctor --fix
 - CLI tools handle coordination via Bash: swarm init, memory, hooks, routing
 - NEVER use CLI tools as a substitute for Task tool agents
 
+## Superpowers - TDD, Debugging & Collaboration
+
+This project includes **superpowers** - a comprehensive skills library for AI agents developed by Jesse Vincent (obra). Superpowers provides automated workflows for test-driven development, systematic debugging, and collaborative development patterns.
+
+### Available Superpowers Skills
+
+**Testing & Quality:**
+- **test-driven-development** - Enforces RED-GREEN-REFACTOR cycle
+- **verification-before-completion** - Ensures fixes actually work
+
+**Debugging:**
+- **systematic-debugging** - 4-phase root cause analysis process
+
+**Planning & Collaboration:**
+- **brainstorming** - Socratic design refinement through questions
+- **writing-plans** - Detailed implementation planning with bite-sized tasks
+- **executing-plans** - Batch execution with human checkpoints
+- **requesting-code-review** - Pre-review checklist and workflow
+- **receiving-code-review** - Responding to feedback constructively
+
+**Advanced Workflows:**
+- **subagent-driven-development** - Fast iteration with two-stage review
+- **dispatching-parallel-agents** - Concurrent subagent workflows
+- **using-git-worktrees** - Parallel development branches
+- **finishing-a-development-branch** - Merge/PR decision workflow
+
+**Meta:**
+- **writing-skills** - Create new skills following best practices
+- **using-superpowers** - Introduction to the skills system
+
+### How Superpowers Works
+
+Superpowers skills activate **automatically** based on context. The system checks for relevant skills before any task:
+
+1. **Before coding** → brainstorming skill refines requirements
+2. **After design approval** → using-git-worktrees creates isolated workspace
+3. **With approved design** → writing-plans breaks work into tasks
+4. **With plan** → subagent-driven-development or executing-plans
+5. **During implementation** → test-driven-development enforces TDD
+6. **Between tasks** → requesting-code-review validates progress
+7. **When tasks complete** → finishing-a-development-branch handles cleanup
+
+### Usage Examples
+
+**Planning a feature:**
+```
+Help me plan a user authentication system
+```
+→ Activates brainstorming skill
+
+**Debugging an issue:**
+```
+This test is failing intermittently
+```
+→ Activates systematic-debugging skill
+
+**Writing tests:**
+```
+Add tests for the payment processing module
+```
+→ Activates test-driven-development skill
+
+**Code review:**
+```
+Review my changes to the API layer
+```
+→ Activates requesting-code-review skill
+
+### Key Philosophies
+
+- **Test-Driven Development** - Write tests first, always
+- **Systematic over ad-hoc** - Process over guessing
+- **Complexity reduction** - Simplicity as primary goal
+- **Evidence over claims** - Verify before declaring success
+
+### Integration with RuFlo
+
+Superpowers complements RuFlo's existing workflow:
+- **OpenSpec** → What to build
+- **Superpowers planning** → How to approach it
+- **Playwright tests** → Verification
+- **Claude-Flow agents** → Implementation
+
+For more details, see: https://github.com/obra/superpowers
+
+---
+
+## OpenSpec - Spec-Driven Development
+
+This project includes **OpenSpec** - an AI-native system for spec-driven development. OpenSpec manages change proposals with structured artifacts (proposal, design, tasks) for systematic feature development.
+
+### Installation
+
+OpenSpec is a separate CLI tool (not part of `@claude-flow/cli`):
+
+```bash
+# Install globally
+npm install -g @fission-ai/openspec
+
+# Or use npx without installing
+npx -y @fission-ai/openspec --help
+```
+
+### Quick Start
+
+```bash
+# Initialize OpenSpec in your project (one-time setup)
+openspec init
+
+# Create a new change proposal
+openspec new change "feature-name"
+
+# Check status of a change
+openspec status --change "feature-name"
+
+# View all changes
+openspec list changes
+
+# Show change details
+openspec show change "feature-name"
+```
+
+### OpenSpec Workflow
+
+1. **Propose** → Create change with artifacts
+   ```bash
+   openspec new change "add-user-auth"
+   ```
+
+2. **Create Artifacts** → Generate proposal, design, tasks
+   - The skill creates files in `openspec/changes/<name>/`
+   - Artifacts include: `proposal.md`, `design.md`, `tasks.md`
+
+3. **Implement** → Execute tasks
+   ```bash
+   # Use Claude Code skill to implement
+   /opsx:apply add-user-auth
+   ```
+
+4. **Archive** → Move completed changes to archive
+   ```bash
+   openspec archive "add-user-auth"
+   ```
+
+### Using with Claude Code
+
+OpenSpec integrates with Claude Code via skills:
+
+- **`/opsx:propose <name>`** - Create new change with all artifacts
+- **`/opsx:apply <name>`** - Implement tasks from a change
+- **`/opsx:explore`** - Explore and refine requirements interactively
+- **`/opsx:archive <name>`** - Archive completed change
+
+**Example:**
+```
+/opsx:propose frontend-refactor-ai-optimization
+```
+
+This creates:
+```
+openspec/changes/frontend-refactor-ai-optimization/
+├── .openspec.yaml
+├── proposal.md       (what & why)
+├── design.md         (how)
+└── tasks.md          (implementation steps)
+```
+
+### OpenSpec vs CLI Tools
+
+**Important:** OpenSpec is a separate tool, NOT part of `@claude-flow/cli`:
+
+```bash
+# ❌ WRONG - This will fail
+npx @claude-flow/cli@latest openspec new change "name"
+
+# ✅ CORRECT - Use openspec directly
+openspec new change "name"
+
+# ✅ ALSO CORRECT - Use npx for openspec package
+npx -y @fission-ai/openspec new change "name"
+```
+
+### Available Commands
+
+| Command | Description |
+|---------|-------------|
+| `init` | Initialize OpenSpec in project |
+| `new change <name>` | Create new change proposal |
+| `list [changes\|specs]` | List items |
+| `show <item>` | Display change or spec details |
+| `status --change <name>` | Show artifact completion status |
+| `instructions <artifact>` | Get creation instructions |
+| `validate <name>` | Validate change/spec |
+| `archive <name>` | Archive completed change |
+| `schema` | Manage workflow schemas |
+
+### Integration with RuFlo
+
+OpenSpec complements RuFlo's workflow:
+- **OpenSpec** → What to build (specification)
+- **Superpowers planning** → How to approach it
+- **Playwright tests** → Verification
+- **Claude-Flow agents** → Implementation
+
+### Support
+
+- Documentation: https://github.com/Fission-AI/OpenSpec
+- NPM Package: https://www.npmjs.com/package/@fission-ai/openspec
+
+---
+
 ## Caveman Token Optimization
 
 This project includes **caveman** - a Claude Code skill that reduces token usage by 50-75% through condensed communication patterns. Caveman maintains full technical accuracy while dramatically reducing API costs.
@@ -270,3 +482,4 @@ Based on project analysis:
 - Documentation: https://github.com/ruvnet/claude-flow
 - Issues: https://github.com/ruvnet/claude-flow/issues
 - Caveman: https://github.com/JuliusBrussee/caveman
+- Superpowers: https://github.com/obra/superpowers
