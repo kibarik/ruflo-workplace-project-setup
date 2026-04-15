@@ -15,7 +15,9 @@
     "claude:swarm": "npx -y @claude-flow/cli@latest swarm init --topology hierarchical-mesh --max-agents 15",
     "claude:status": "npx -y @claude-flow/cli@latest swarm status",
     "openspec:propose": "npx -y @claude-flow/cli@latest openspec propose",
-    "openspec:apply": "/openspec-apply-change"
+    "openspec:apply": "/openspec-apply-change",
+    "context7:status": "npx -y @context7/mcp-server --status",
+    "context7:clear": "npx -y @context7/mcp-server --clear"
   },
   "keywords": [
     "claude-flow",

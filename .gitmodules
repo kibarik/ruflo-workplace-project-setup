@@ -1,3 +1,6 @@
 [submodule ".claude/skills/caveman"]
 	path = .claude/skills/caveman
 	url = https://github.com/JuliusBrussee/caveman.git
+[submodule ".claude/skills/superpowers"]
+	path = .claude/skills/superpowers
+	url = https://github.com/obra/superpowers.git

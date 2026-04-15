@@ -1,12 +1,13 @@
 ---
 name: openspec-propose
-description: Propose a new change with all artifacts generated in one step. Use when the user wants to quickly describe what they want to build and get a complete proposal with design, specs, and tasks ready for implementation.
+description: Propose a new change with all artifacts generated in one step. Use when the user wants to quickly describe what they want to build and get a complete proposal with design, specs, and tasks ready for swarm implementation.
 license: MIT
-compatibility: Requires openspec CLI.
+compatibility: Requires openspec CLI + @claude-flow/cli for swarm execution
 metadata:
-  author: openspec
-  version: "1.0"
+  author: openspec+ruflo
+  version: "2.0"
   generatedBy: "1.2.0"
+  swarmIntegration: true
 ---
 
 Propose a new change - create the change and generate all artifacts in one step.
@@ -16,7 +17,9 @@ I'll create a change with artifacts:
 - design.md (how)
 - tasks.md (implementation steps)
 
-When ready to implement, run /opsx:apply
+**Next step**: Run `/opsx:apply` to implement.
+
+**Execution mode**: Spawns RuFlo Swarm for parallel multi-agent execution (2+ independent tasks).
 
 ---
 
